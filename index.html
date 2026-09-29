@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="QuizNova — modern responsive quiz application">
+  <title>QuizNova — Modern Quiz App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="bg-orb orb-one"></div><div class="bg-orb orb-two"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#">
+      <span class="brand-mark">Q</span><span>QuizNova</span>
+    </a>
+    <div class="header-actions">
+      <button id="themeBtn" class="icon-btn" aria-label="Toggle theme">☾</button>
+      <a class="admin-link" href="#admin">Admin</a>
+    </div>
+  </header>
+
+  <div id="loginModal" class="modal hidden">
+    <form id="loginForm" class="login-card glass">
+      <button type="button" id="closeLogin" class="modal-close">×</button>
+      <span class="eyebrow">ADMIN ACCESS</span>
+      <h2>Sign in</h2>
+      <p>Enter the administrator credentials to manage quiz content.</p>
+      <label>Username<input id="loginUsername" autocomplete="username" required></label>
+      <label>Password<input id="loginPassword" type="password" autocomplete="current-password" required></label>
+      <button class="primary-btn wide" type="submit">Sign in</button>
+      <small id="loginError" class="login-error"></small>
+    </form>
+  </div>
+
+  <main>
+    <section id="homeScreen" class="screen active">
+      <div class="hero">
+        <span class="eyebrow">SMART • FAST • FUN</span>
+        <h1>Test your knowledge.<br><span>Level up.</span></h1>
+        <p>Challenge yourself with curated questions, instant feedback and detailed performance insights.</p>
+      </div>
+
+      <div class="setup-card glass">
+        <div class="section-head"><div><span class="mini-label">01</span><h2>Choose your challenge</h2></div></div>
+        <div class="field-grid">
+          <label>Category<select id="categorySelect"><option value="">All categories</option></select></label>
+          <label>Difficulty<select id="difficultySelect"><option value="">All levels</option><option>Easy</option><option>Medium</option><option>Hard</option></select></label>
+          <label>Questions<select id="questionCount"><option>5</option><option>10</option><option>15</option><option>20</option></select></label>
+        </div>
+        <div class="start-row"><button id="startBtn" class="primary-btn">Start Quiz <span>→</span></button><div class="quick-stat"><strong>15s</strong><small>per question</small></div></div>
+      </div>
+
+      <div class="history glass">
+        <div class="section-head"><div><span class="mini-label">RECENT</span><h2>Your score history</h2></div><button id="clearHistory" class="text-btn">Clear</button></div>
+        <div id="historyList" class="history-list"></div>
+      </div>
+    </section>
+
+    <section id="quizScreen" class="screen">
+      <div class="quiz-head">
+        <button id="quitBtn" class="text-btn">← Exit</button>
+        <div class="score-pill">Score <b id="scoreValue">0</b></div>
+        <div class="timer"><span>◷</span><b id="timerValue">15</b>s</div>
+      </div>
+      <div class="progress-track"><div id="progressBar"></div></div>
+      <div class="question-meta"><span id="questionNumber">Question 1 of 5</span><span id="difficultyBadge">Easy</span></div>
+      <article class="question-card glass">
+        <p id="categoryLabel" class="category-label"></p>
+        <h2 id="questionText">Loading...</h2>
+        <div id="options" class="options"></div>
+      </article>
+      <div class="quiz-actions">
+        <button id="prevBtn" class="secondary-btn">← Previous</button>
+        <button id="nextBtn" class="primary-btn">Next →</button>
+      </div>
+    </section>
+
+    <section id="resultScreen" class="screen">
+      <div class="result-card glass">
+        <span class="eyebrow">QUIZ COMPLETE</span>
+        <h1>Great work!</h1>
+        <div class="score-ring"><span id="finalScore">0%</span><small>Score</small></div>
+        <p id="resultMessage"></p>
+        <div class="result-stats">
+          <div><b id="correctCount">0</b><span>Correct</span></div>
+          <div><b id="incorrectCount">0</b><span>Incorrect</span></div>
+          <div><b id="totalCount">0</b><span>Total</span></div>
+        </div>
+        <div id="analysis" class="analysis"></div>
+        <button id="restartBtn" class="primary-btn wide">Restart Quiz ↻</button>
+        <button id="homeBtn" class="secondary-btn wide">Back to Home</button>
+      </div>
+    </section>
+
+    <section id="adminScreen" class="screen">
+      <div class="admin-head">
+        <div><span class="eyebrow">CONTROL CENTER</span><h1>Question Admin</h1></div>
+        <div class="header-actions"><button id="logoutBtn" class="secondary-btn">Logout</button><a href="#" class="secondary-btn">← Quiz</a></div>
+      </div>
+      <div class="admin-grid">
+        <form id="questionForm" class="admin-form glass">
+          <input type="hidden" id="editId">
+          <h2 id="formTitle">Add question</h2>
+          <label>Question<textarea id="qText" required maxlength="500"></textarea></label>
+          <div class="field-grid two">
+            <label>Category<select id="adminCategory" required></select></label>
+            <label>Difficulty<select id="adminDifficulty"><option>Easy</option><option>Medium</option><option>Hard</option></select></label>
+          </div>
+          <div class="field-grid two">
+            <label>Option A<input id="optA" required></label><label>Option B<input id="optB" required></label>
+            <label>Option C<input id="optC" required></label><label>Option D<input id="optD" required></label>
+          </div>
+          <label>Correct option<select id="correctOpt"><option>A</option><option>B</option><option>C</option><option>D</option></select></label>
+          <label>Explanation<textarea id="explanation" maxlength="500"></textarea></label>
+          <div class="form-actions"><button class="primary-btn" type="submit">Save Question</button><button class="secondary-btn" type="button" id="resetForm">Reset</button></div>
+        </form>
+
+        <div class="admin-list glass">
+          <div class="list-toolbar"><h2>Questions</h2><div><button id="exportBtn" class="secondary-btn">Export JSON</button><label class="file-btn secondary-btn">Import JSON<input id="importFile" type="file" accept=".json"></label></div></div>
+          <div id="adminQuestions"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="js/app.js"></script>
+</body>
+</html>
