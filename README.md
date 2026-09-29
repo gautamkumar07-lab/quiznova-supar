@@ -1,57 +1,28 @@
-# quiznova-supar  
-# Modern Quiz App
+# QuizNova — GitHub Pages Edition
 
-A responsive full-stack quiz application built with HTML, CSS, JavaScript, Node.js, Express and SQLite.
+This version is **static** and works directly from a GitHub Pages URL. It does not need `localhost`, Node.js, Express, or a local database.
 
-## Features
-- Home screen with category and difficulty filters
-- Per-question countdown timer
-- Progress bar and score tracking
-- Next/Previous navigation
-- Results analysis
-- Local score history
-- Dark/Light theme
-- Admin CRUD for questions and categories
-- JSON import/export
-- SQLite persistence
-- Helmet security headers and input validation
+## Upload to GitHub Pages
 
-## Run
-```bash
-npm install
-npm start
-```
-Open http://localhost:3000
+1. Create a GitHub repository, for example `quiznova`.
+2. Upload these files/folders:
+   - `index.html`
+   - `css/style.css`
+   - `js/app.js`
+3. GitHub → **Settings** → **Pages**
+4. Under **Build and deployment**, choose **Deploy from a branch**.
+5. Select your main branch and `/ (root)`.
+6. Save and wait for GitHub Pages to publish.
+7. Open the generated Pages URL on any phone or computer.
 
-## Admin authentication
-Open `/#admin` in the browser.
+## Important
 
-Default development credentials:
-- Username: `admin`
-- Password: `Admin@12345`
+Because GitHub Pages only serves static files:
+- Quiz data and score history are stored in the browser's `localStorage`.
+- Admin CRUD/import/export works in that browser.
+- Admin username: `admin`
+- Admin password: `Admin@12345`
+- Admin changes are NOT shared between different devices.
+- This client-side admin password is not real server security.
 
-For production, set environment variables:
-```bash
-ADMIN_USER=your-admin
-ADMIN_PASSWORD=use-a-strong-password
-SESSION_SECRET=use-a-long-random-secret
-NODE_ENV=production
-```
-
-The admin API is protected by a server-side session. For a production deployment, also use HTTPS, a persistent session store, rate limiting, CSRF protection and proper account management.
-
-## API
-- GET `/api/categories`
-- POST `/api/categories`
-- DELETE `/api/categories/:id`
-- GET `/api/questions`
-- GET `/api/questions/:id`
-- POST `/api/questions`
-- PUT `/api/questions/:id`
-- DELETE `/api/questions/:id`
-- GET `/api/questions/export`
-- POST `/api/questions/import`
-- POST `/api/scores`
-
-## Production notes
-Add authentication/authorization, CSRF protection, rate limiting, HTTPS, environment variables and server-side audit logging before exposing the admin API publicly.
+For a true multi-device app with one shared question database and secure admin login, the Node.js backend must be hosted separately with a cloud database.
